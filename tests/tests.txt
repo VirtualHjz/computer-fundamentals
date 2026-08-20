@@ -1,0 +1,61 @@
+# Tests
+
+## Test 1 - 深入浏览知识图谱并跨节点跳转 [sanity]
+Viewport: desktop
+Covers: 8 大领域导航, 32 关键节点, 深度解释, 跨节点连接
+Description: 验证用户可以进入某个关键节点，阅读机制与排错视角，并沿知识连接跳到另一个领域。
+
+Steps:
+1. 滚动到“32 个关键节点”知识图谱，选择“网络与互联网”
+2. 点击“HTTP、TLS 与一次请求”，阅读“内部到底发生了什么”和“排错时这样想”
+3. 在“继续沿图谱跳转”中点击“后端、API 与请求生命周期”
+
+Expected: 页面切换到 Web 与应用领域并展示“后端、API 与请求生命周期”的深度详情。
+
+## Test 2 - 操作 HTTP 机制实验室
+Viewport: desktop
+Covers: 机制实验室, HTTP 请求分层动画, 可点击步骤
+Description: 验证用户能通过交互实验理解一次 Web 请求依次经过 DNS、传输、TLS、HTTP、后端与浏览器。
+
+Steps:
+1. 滚动到“机制实验室”并选择“03 HTTP 请求”
+2. 点击“TLS”步骤
+3. 点击“继续请求”直到 Backend 步骤
+
+Expected: 实验说明随步骤变化，并能看到 TLS 用于证书/密钥、Backend 用于身份/业务/数据库处理的解释。
+
+## Test 3 - 切换数据库索引并比较查询代价
+Viewport: desktop
+Covers: 数据库索引交互实验, 性能机制可视化, guardrail against shallow definitions
+Description: 验证用户可以直观看到全表扫描与索引定位在比较次数上的差异。
+
+Steps:
+1. 在机制实验室选择“04 数据库索引”
+2. 观察未开启“使用索引”时的全表扫描
+3. 开启“使用索引”
+
+Expected: 说明从“全表扫描：12 次比较”切换到“B-Tree 直觉：3 次定位”，并展示更少的被检查行。
+
+## Test 4 - 按 AI 产品路径反向学习
+Viewport: desktop
+Covers: 实作路径切换, AI 产品知识链, 从路径跳到节点
+Description: 验证用户能从作品目标反推需要掌握的知识节点，并直接进入其中一个节点。
+
+Steps:
+1. 滚动到“从‘我想做什么’反推”区域
+2. 选择“做一个 AI 产品”
+3. 点击“RAG、工具调用与 Agent”步骤
+
+Expected: 页面跳回知识图谱的 AI 与大模型领域，并展示“RAG、工具调用与 Agent”节点详情。
+
+## Test 5 - 手机端搜索术语并定位知识层
+Viewport: mobile
+Covers: 移动端响应式布局, 术语搜索, 术语到节点定位
+Description: 验证移动端用户可以搜索术语并从结果跳到对应深度节点。
+
+Steps:
+1. 在术语区域搜索“attention”
+2. 点击 attention 术语结果
+3. 阅读对应节点的直觉解释和机制列表
+
+Expected: 页面跳到“Transformer 与注意力”节点，移动端内容单列可读且机制步骤完整可见。
