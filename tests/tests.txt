@@ -1,61 +1,49 @@
 # Tests
 
-## Test 1 - 深入浏览知识图谱并跨节点跳转 [sanity]
+## Test 1 - 从首页进入目录再打开独立知识页 [sanity]
 Viewport: desktop
-Covers: 8 大领域导航, 32 关键节点, 深度解释, 跨节点连接
-Description: 验证用户可以进入某个关键节点，阅读机制与排错视角，并沿知识连接跳到另一个领域。
+Covers: 首页入口, Hash 子页面路由, 结构化知识目录, 独立知识页
+Description: 验证首页只承担入口职责，用户能通过目录进入一个独立 URL 的知识页面。
 
 Steps:
-1. 滚动到“32 个关键节点”知识图谱，选择“网络与互联网”
-2. 点击“HTTP、TLS 与一次请求”，阅读“内部到底发生了什么”和“排错时这样想”
-3. 在“继续沿图谱跳转”中点击“后端、API 与请求生命周期”
+1. 在首页点击“打开结构化目录”
+2. 在“信息与机器”分组点击“CPU、指令与时钟”
+3. 查看页面地址与知识页标题
 
-Expected: 页面切换到 Web 与应用领域并展示“后端、API 与请求生命周期”的深度详情。
+Expected: 地址 hash 为“#/knowledge/cpu”，页面显示“CPU、指令与时钟”，并可见独立的本页目录与“先把它看见”可视化区域。
 
-## Test 2 - 操作 HTTP 机制实验室
+## Test 2 - 操作知识页可视化并继续前后知识
 Viewport: desktop
-Covers: 机制实验室, HTTP 请求分层动画, 可点击步骤
-Description: 验证用户能通过交互实验理解一次 Web 请求依次经过 DNS、传输、TLS、HTTP、后端与浏览器。
+Covers: 每知识点独立可视化, 机制讲解, 知识页前后导航
+Description: 验证知识页不是静态定义，而是包含可操作模型并能沿推荐顺序继续学习。
 
 Steps:
-1. 滚动到“机制实验室”并选择“03 HTTP 请求”
-2. 点击“TLS”步骤
-3. 点击“继续请求”直到 Backend 步骤
+1. 打开“#/knowledge/bits-bytes”
+2. 拖动“调整十进制数值”滑块并观察 8 个 bit 与等式变化
+3. 点击页面底部“下一个”进入 CPU 页面
 
-Expected: 实验说明随步骤变化，并能看到 TLS 用于证书/密钥、Backend 用于身份/业务/数据库处理的解释。
+Expected: bit 可视化会随滑块更新；底部导航进入“CPU、指令与时钟”独立页面。
 
-## Test 3 - 切换数据库索引并比较查询代价
+## Test 3 - 搜索目录并处理不存在的知识路由
 Viewport: desktop
-Covers: 数据库索引交互实验, 性能机制可视化, guardrail against shallow definitions
-Description: 验证用户可以直观看到全表扫描与索引定位在比较次数上的差异。
+Covers: 目录搜索, 空状态 guardrail, 不存在路由 guardrail
+Description: 验证目录能按知识/术语筛选，并对错误子页面提供明确返回路径。
 
 Steps:
-1. 在机制实验室选择“04 数据库索引”
-2. 观察未开启“使用索引”时的全表扫描
-3. 开启“使用索引”
+1. 打开“#/catalog”，搜索“TLS”
+2. 确认只保留与 HTTP/TLS 相关的知识卡片
+3. 将地址改为“#/knowledge/not-a-real-node”
 
-Expected: 说明从“全表扫描：12 次比较”切换到“B-Tree 直觉：3 次定位”，并展示更少的被检查行。
+Expected: 搜索可定位“HTTP、TLS 与一次请求”；不存在路由显示“这个知识页还不存在”并提供“回到知识目录”入口。
 
-## Test 4 - 按 AI 产品路径反向学习
-Viewport: desktop
-Covers: 实作路径切换, AI 产品知识链, 从路径跳到节点
-Description: 验证用户能从作品目标反推需要掌握的知识节点，并直接进入其中一个节点。
-
-Steps:
-1. 滚动到“从‘我想做什么’反推”区域
-2. 选择“做一个 AI 产品”
-3. 点击“RAG、工具调用与 Agent”步骤
-
-Expected: 页面跳回知识图谱的 AI 与大模型领域，并展示“RAG、工具调用与 Agent”节点详情。
-
-## Test 5 - 手机端搜索术语并定位知识层
+## Test 4 - 手机端完成首页到知识页的完整路径
 Viewport: mobile
-Covers: 移动端响应式布局, 术语搜索, 术语到节点定位
-Description: 验证移动端用户可以搜索术语并从结果跳到对应深度节点。
+Covers: 移动端首页, 移动端目录, 移动端知识页目录, 响应式可视化
+Description: 验证窄屏下三层信息架构和核心学习交互仍完整可用。
 
 Steps:
-1. 在术语区域搜索“attention”
-2. 点击 attention 术语结果
-3. 阅读对应节点的直觉解释和机制列表
+1. 从首页进入知识目录
+2. 打开“Token、Embedding 与表示”
+3. 展开“本页目录”，点击“1. 先看可视化”，再点击向量示意中的“猫”和“汽车”
 
-Expected: 页面跳到“Transformer 与注意力”节点，移动端内容单列可读且机制步骤完整可见。
+Expected: 页面保持单列可读；本页目录可展开；Embedding 可视化可以切换选中的概念且不产生横向溢出。
